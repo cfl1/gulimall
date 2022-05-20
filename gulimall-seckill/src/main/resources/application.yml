@@ -1,0 +1,46 @@
+ipAddr: 192.168.56.10
+server:
+  port: 25000
+
+spring:
+  application:
+    name: gulimall-seckill
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8333
+        port: 8719
+  #    链路追踪
+  zipkin:
+    base-url: http://192.168.56.10:9411/    # zipkin 服务器的地址 # 关闭服务发现，否则Spring Cloud 会把zipkin 的url 当做服务名称
+    discoveryClientEnabled: false
+    sender:
+      type: web    # 设置使用http 的方式传输数据
+  sleuth:
+    sampler:
+      probability: 1    # 设置抽样采集率为100%，默认为0.1，即10%
+  redis:
+    host: ${ipAddr}
+    port: 6379
+    session:
+    store-type: redis
+  rabbitmq:
+    virtual-host: /
+    host: ${ipAddr}
+  thymeleaf:
+    cache: false
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 50
+    #    scheduling:
+    #      pool:
+    #        size: 5
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug
+    org.springframework.cloud.sleuth: debug

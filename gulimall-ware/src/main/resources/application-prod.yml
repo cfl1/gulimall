@@ -1,0 +1,60 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://gulimall-mysql-master.gulimall:3306/gulimall_wms
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos-service.gulimall:8848
+    sentinel:
+      transport:
+        dashboard: sentinel-service.gulimall:8333
+  application:
+    name: gulimall-ware
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  rabbitmq:
+    host: rabbitmq-management.gulimall
+    virtual-host: /
+    listener:
+      simple:
+        # 手动确认接受消息
+        acknowledge-mode: manual
+
+  #    链路追踪
+  zipkin:
+    base-url: http://zipkin-service.gulimall:9411/    # zipkin 服务器的地址 # 关闭服务发现，否则Spring Cloud 会把zipkin 的url 当做服务名称
+    discoveryClientEnabled: false
+    sender:
+      type: web    # 设置使用http 的方式传输数据
+  sleuth:
+    sampler:
+      probability: 1    # 设置抽样采集率为100%，默认为0.1，即10%
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+myRabbitmq:
+  MQConfig:
+    queues: stock.release.stock.queue
+    delayQueue: stock.delay.queue
+    eventExchange: stock-event-exchange
+    routingKey: stock.locked
+    letterRoutingKey: stock.release
+    # 库存自动过期时间 单位:(毫秒)
+    ttl: 900000
+
+logging:
+  level:
+    com.atguigu: debug

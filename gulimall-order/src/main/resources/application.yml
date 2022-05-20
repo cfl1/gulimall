@@ -1,0 +1,85 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.56.10:3306/gulimall_oms
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    host: 192.168.56.10
+    port: 5672
+    virtual-host: /
+    #开启发送端确认
+    publisher-confirms: true
+    #开发发送端消息抵达队列的确认
+    publisher-returns: true
+    #只要抵达队列，以异步发送优先回调我们这个returnconfirm
+    template:
+      mandatory: true
+    #手动确认消息
+    listener:
+      direct:
+        acknowledge-mode: manual
+  thymeleaf:
+    cache: false
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8333
+  application:
+    name: gulimall-order
+  session:
+    store-type: redis
+  redis:
+    host: 192.168.56.10
+    port: 6379
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+  #    链路追踪
+  zipkin:
+    base-url: http://192.168.56.10:9411/    # zipkin 服务器的地址 # 关闭服务发现，否则Spring Cloud 会把zipkin 的url 当做服务名称
+    discoveryClientEnabled: false
+    sender:
+      type: web    # 设置使用http 的方式传输数据
+  sleuth:
+    sampler:
+      probability: 1    # 设置抽样采集率为100%，默认为0.1，即10%
+
+gulimall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10
+
+myRabbitmq:
+  queue: mall-queue
+  exchange: mall-exchange
+  routeKey: mall
+  MQConfig:
+    # 订单队列
+    createOrder: order.create.order
+    delayQueue: order.delay.queue
+    eventExchange: order-event-exchange
+    routingKey: order.release.order
+    queues: order.release.order.queue
+    # 订单自动过期时间 单位:(毫秒)
+    ttl: 900000
+    # 库存解锁队列
+    ReleaseOther: stock.release.stock.queue
+    ReleaseOtherKey: order.release.other
+alipay:
+  app_id: 2021000119649811
+  # 支付宝异步回调通知 这个来感应订单是否完成
+  notify_url: https://ckxs3luybf.51xd.pub/payed/notify
+  return_url: http://member.gulimall.com/memberOrder.html
+  timeout: 15m

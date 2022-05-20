@@ -1,0 +1,21 @@
+192.168.56.10	gulimall.com
+192.168.56.10	search.gulimall.com
+192.168.56.10	item.gulimall.com
+192.168.56.10	auth.gulimall.com
+192.168.56.10	cart.gulimall.com
+192.168.56.10	order.gulimall.com
+192.168.56.10	member.gulimall.com
+192.168.56.10	seckill.gulimall.com
+#k8s:
+192.168.56.101	gulimall.com
+192.168.56.101	search.gulimall.com
+192.168.56.101	item.gulimall.com
+192.168.56.101	auth.gulimall.com
+192.168.56.101	cart.gulimall.com
+192.168.56.101	order.gulimall.com
+192.168.56.101	member.gulimall.com
+192.168.56.101	seckill.gulimall.com
+
+127.0.0.1		ssoserver.com
+127.0.0.1		client.com
+127.0.0.1		client2.com

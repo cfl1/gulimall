@@ -1,0 +1,31 @@
+ipAddr: 192.168.56.10
+spring:
+  application:
+    name: gulimall-cart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8333
+  session:
+    store-type: redis
+  redis:
+    host: ${ipAddr}
+  #    链路追踪
+  zipkin:
+    base-url: http://192.168.56.10:9411/    # zipkin 服务器的地址 # 关闭服务发现，否则Spring Cloud 会把zipkin 的url 当做服务名称
+    discoveryClientEnabled: false
+    sender:
+      type: web    # 设置使用http 的方式传输数据
+  sleuth:
+    sampler:
+      probability: 1    # 设置抽样采集率为100%，默认为0.1，即10%
+server:
+  port: 40000
+gulimall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10
