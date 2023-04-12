@@ -7,16 +7,16 @@ spring:
       transport:
         dashboard: sentinel-service.gulimall:8333
     alicloud:
-      access-key: LTAI5tRi6o9D4LmB5CcQitUN
-      secret-key: in4q01WU8Ex6DYN5cuQQPPWX3FKyw5
+      access-key: ******
+      secret-key: ******
       oss:
         endpoint: oss-cn-hangzhou.aliyuncs.com
-        bucket: gulimall-chenfl
+        bucket: ******
       sms:
-        accessKeyId: NOlCriukaUkvlm8X
-        secret: zpXIJIbEVO7rWuUu8rEMbImu0srNeV
-        signName: 同行者
-        templateCode: SMS_107070058
+        accessKeyId: ******
+        secret: ******
+        signName: ******
+        templateCode: ******
 
   application:
     name: gulimall-third-party
